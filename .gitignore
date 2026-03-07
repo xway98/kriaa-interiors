@@ -10,7 +10,8 @@ out/
 .env*.local
 
 # Firebase admin key file (if you use one)
-*.json
+firebase-service-account*.json
+serviceAccountKey*.json
 
 # OS
 .DS_Store
