@@ -1,7 +1,9 @@
-// app/api/projects/[id]/route.ts — delete a project
+// app/api/projects/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb, adminStorage } from '@/lib/firebase-admin';
+import { getAdminDb, getAdminStorage } from '@/lib/firebase-admin';
 import { isAdminAuthenticated } from '@/lib/auth';
+
+export const dynamic = 'force-dynamic';
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     const isAdmin = await isAdminAuthenticated();
@@ -10,17 +12,15 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     const { id } = await params;
 
     try {
-        const doc = await adminDb.collection('projects').doc(id).get();
+        const db = getAdminDb();
+        const storage = getAdminStorage();
+        const doc = await db.collection('projects').doc(id).get();
         if (doc.exists) {
             const data = doc.data();
             if (data?.filename) {
-                try {
-                    await adminStorage.bucket().file(data.filename).delete();
-                } catch (_) {
-                    // file might already be gone
-                }
+                try { await storage.bucket().file(data.filename).delete(); } catch { /* file might be gone */ }
             }
-            await adminDb.collection('projects').doc(id).delete();
+            await db.collection('projects').doc(id).delete();
         }
         return NextResponse.json({ success: true });
     } catch (err) {

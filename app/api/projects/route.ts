@@ -1,19 +1,19 @@
 // app/api/projects/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb, adminStorage } from '@/lib/firebase-admin';
+import { getAdminDb, getAdminStorage } from '@/lib/firebase-admin';
 import { isAdminAuthenticated } from '@/lib/auth';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
     try {
-        const snapshot = await adminDb
-            .collection('projects')
-            .orderBy('createdAt', 'desc')
-            .get();
+        const db = getAdminDb();
+        const snapshot = await db.collection('projects').orderBy('createdAt', 'desc').get();
         const projects = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         return NextResponse.json(projects);
     } catch (err) {
         console.error('Error fetching projects:', err);
-        return NextResponse.json({ error: 'Failed to fetch projects.' }, { status: 500 });
+        return NextResponse.json([], { status: 200 });
     }
 }
 
@@ -36,13 +36,15 @@ export async function POST(req: NextRequest) {
         const buffer = Buffer.from(bytes);
         const filename = `projects/${Date.now()}_${file.name.replace(/\s/g, '_')}`;
 
-        const bucket = adminStorage.bucket();
+        const storage = getAdminStorage();
+        const bucket = storage.bucket();
         const fileRef = bucket.file(filename);
         await fileRef.save(buffer, { contentType: file.type, public: true });
 
         const imageUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
 
-        const docRef = await adminDb.collection('projects').add({
+        const db = getAdminDb();
+        const docRef = await db.collection('projects').add({
             title,
             location: location || '',
             category: category || 'Residential',
