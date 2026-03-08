@@ -28,7 +28,7 @@ export default function KriaaLogo({ size = 'md' }: Props) {
 
             {/* i — always crimson */}
             <text
-                x="87"
+                x="83"
                 y="48"
                 fontFamily="'Colonna MT Std', 'Colonna MT', serif"
                 fontSize="56"
@@ -52,13 +52,13 @@ export default function KriaaLogo({ size = 'md' }: Props) {
 
             {/* INTERIORS — smaller tagline */}
             <text
-                x="1"
-                y="63"
+                x="7"
+                y="68"
                 fontFamily="'Outfit', 'Inter', sans-serif"
-                fontSize="10"
-                fontWeight="300"
+                fontSize="18"
+                fontWeight="400"
                 fill="currentColor"
-                letterSpacing="5"
+                letterSpacing="10"
                 opacity="0.55"
             >
                 INTERIORS
