@@ -10,13 +10,7 @@ export default function LogoIntro() {
     const overlayRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Only play once per session
-        if (sessionStorage.getItem('intro-shown')) {
-            setPhase('done');
-            return;
-        }
-
-        // Start exit: shrink + fly to navbar logo position
+        // Fly to navbar position then remove overlay
         const exitTimer = setTimeout(() => {
             const navLogo = document.getElementById('navbar-logo');
             const wrap = wrapRef.current;
@@ -25,7 +19,6 @@ export default function LogoIntro() {
                 const navRect = navLogo.getBoundingClientRect();
                 const wrapRect = wrap.getBoundingClientRect();
 
-                // Calculate offset from intro-logo center → navbar logo center
                 const fromCX = wrapRect.left + wrapRect.width / 2;
                 const fromCY = wrapRect.top + wrapRect.height / 2;
                 const toCX = navRect.left + navRect.width / 2;
@@ -44,12 +37,10 @@ export default function LogoIntro() {
             }
 
             setPhase('exiting');
-        }, 1650); // starts flyout after letters finish appearing
+        }, 1650);
 
-        // Remove overlay completely
         const doneTimer = setTimeout(() => {
             setPhase('done');
-            sessionStorage.setItem('intro-shown', '1');
         }, 2500);
 
         return () => {
@@ -66,7 +57,6 @@ export default function LogoIntro() {
             className={`intro-overlay${phase === 'exiting' ? ' intro-overlay--exit' : ''}`}
             aria-hidden="true"
         >
-            {/* Logo letters — fly to navbar on exit */}
             <div ref={wrapRef} className="intro-logo-wrap" style={phase === 'exiting' ? exitStyle : {}}>
                 <span className="intro-letter intro-K">K</span>
                 <span className="intro-letter intro-R">R</span>
@@ -75,7 +65,6 @@ export default function LogoIntro() {
                 <span className="intro-letter intro-A2">A</span>
             </div>
 
-            {/* Tagline + accent lines — only during playing phase */}
             {phase === 'playing' && (
                 <>
                     <div className="intro-tagline">INTERIORS</div>
