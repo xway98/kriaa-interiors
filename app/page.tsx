@@ -57,7 +57,7 @@ export default function HomePage() {
           style={{ paddingTop: navScrolled ? '0.65rem' : '1rem', paddingBottom: navScrolled ? '0.65rem' : '1rem' }}
         >
           {/* Logo — text SVG, theme-adaptive */}
-          <Link href="/" className="shrink-0" style={{ color: navScrolled ? 'var(--text-primary)' : 'white' }}>
+          <Link href="/" id="navbar-logo" className="shrink-0" style={{ color: navScrolled ? 'var(--text-primary)' : 'white' }}>
             <KriaaLogo size="md" />
           </Link>
 

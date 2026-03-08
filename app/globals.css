@@ -292,7 +292,7 @@ body {
   color: #f5f0eb;
   opacity: 0;
   text-transform: uppercase;
-  animation: introTagline 0.7s ease forwards 1.9s;
+  animation: introTagline 0.6s ease forwards 1.15s;
 }
 
 /* Decorative horizontal lines */
@@ -306,39 +306,39 @@ body {
 
 .intro-line-left {
   left: 0;
-  animation: introLineLeft 0.8s ease forwards 2.0s;
+  animation: introLineLeft 0.7s ease forwards 1.2s;
 }
 
 .intro-line-right {
   right: 0;
-  animation: introLineRight 0.8s ease forwards 2.0s;
+  animation: introLineRight 0.7s ease forwards 1.2s;
 }
 
-/* ─── Per-letter animations ─── */
-
-/* K — slides from far left */
+/* ─── Per-letter animations (faster) ─── */
 .intro-K {
-  animation: introSlideLeft 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.25s;
+  animation: introSlideLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s;
 }
 
-/* R — slides from left, slight delay */
 .intro-R {
-  animation: introSlideLeft 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.45s;
+  animation: introSlideLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.28s;
 }
 
-/* i — drops from above, crimson reveal */
 .intro-i {
-  animation: introDrop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.90s;
+  animation: introDrop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.55s;
 }
 
-/* A1 — slides from right */
 .intro-A1 {
-  animation: introSlideRight 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.15s;
+  animation: introSlideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.72s;
 }
 
-/* A2 — slides from right, slight delay */
 .intro-A2 {
-  animation: introSlideRight 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.30s;
+  animation: introSlideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.85s;
+}
+
+/* Background fades out during fly-to-navbar exit while logo travels */
+.intro-overlay--exit {
+  background: transparent;
+  transition: background 0.45s ease;
 }
 
 /* ─── Keyframes ─── */
