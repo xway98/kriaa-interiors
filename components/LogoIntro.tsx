@@ -7,10 +7,8 @@ export default function LogoIntro() {
     const [phase, setPhase] = useState<Phase>('playing');
     const [exitStyle, setExitStyle] = useState<React.CSSProperties>({});
     const wrapRef = useRef<HTMLDivElement>(null);
-    const overlayRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Fly to navbar position then remove overlay
         const exitTimer = setTimeout(() => {
             const navLogo = document.getElementById('navbar-logo');
             const wrap = wrapRef.current;
@@ -51,20 +49,45 @@ export default function LogoIntro() {
 
     if (phase === 'done') return null;
 
+    // Render as SVG — exactly matching KriaaLogo.tsx so the 'i' looks identical
+    const FONT = "'Colonna MT Std', 'Colonna MT', serif";
+    const FS = 'clamp(3.5rem, 12vw, 8rem)';  // responsive font size via CSS var
+
     return (
         <div
-            ref={overlayRef}
             className={`intro-overlay${phase === 'exiting' ? ' intro-overlay--exit' : ''}`}
             aria-hidden="true"
         >
-            <div ref={wrapRef} className="intro-logo-wrap" style={phase === 'exiting' ? exitStyle : {}}>
-                <span className="intro-letter intro-K">K</span>
-                <span className="intro-letter intro-R">R</span>
-                <span className="intro-letter intro-i">i</span>
-                <span className="intro-letter intro-A1">A</span>
-                <span className="intro-letter intro-A2">A</span>
+            {/* SVG logo — same structure as KriaaLogo.tsx */}
+            <div ref={wrapRef} className="intro-logo-svg-wrap" style={phase === 'exiting' ? exitStyle : {}}>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 310 80"
+                    className="intro-logo-svg"
+                >
+                    {/* K — slides from left */}
+                    <text x="0" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                        className="intro-svg-K">K</text>
+
+                    {/* R — slides from left */}
+                    <text x="57" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                        className="intro-svg-R">R</text>
+
+                    {/* i — crimson, NO italic — matches KriaaLogo exactly */}
+                    <text x="107" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#9b1c3a"
+                        className="intro-svg-i">i</text>
+
+                    {/* A — slides from right */}
+                    <text x="125" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                        className="intro-svg-A1">A</text>
+
+                    {/* A — slides from right */}
+                    <text x="182" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                        className="intro-svg-A2">A</text>
+                </svg>
             </div>
 
+            {/* Tagline + accent lines — only during playing */}
             {phase === 'playing' && (
                 <>
                     <div className="intro-tagline">INTERIORS</div>

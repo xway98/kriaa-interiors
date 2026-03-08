@@ -1,4 +1,5 @@
-'use client';
+'use client'; // This must stay at the very top
+import { track } from '@vercel/analytics'; // Moved this up
 import { useState, useEffect } from 'react';
 
 export default function SiteVisitPopup() {
@@ -22,6 +23,17 @@ export default function SiteVisitPopup() {
         sessionStorage.setItem('kriaa-popup-dismissed', '1');
     };
 
+    // Tracking Functions
+    const handleBookClick = () => {
+        track('Book Now Clicked'); // Tracks the "Book Now" button
+        dismiss();
+    };
+
+    const handleCallClick = () => {
+        track('Call Button Clicked'); // Tracks the "Call Us" button
+        dismiss();
+    };
+
     if (!mounted) return null;
 
     return (
@@ -41,12 +53,14 @@ export default function SiteVisitPopup() {
                     </p>
                 </div>
                 <div className="flex gap-2.5">
-                    <a href="#contact" onClick={dismiss}
+                    {/* BOOK NOW BUTTON */}
+                    <a href="#contact" onClick={handleBookClick}
                         className="flex-1 text-white text-xs uppercase tracking-wider py-3 rounded-lg transition-colors text-center font-medium"
                         style={{ background: 'var(--accent)' }}>
                         Book Now
                     </a>
-                    <a href="tel:+919448658254" onClick={dismiss}
+                    {/* CALL US BUTTON */}
+                    <a href="tel:+919448658254" onClick={handleCallClick}
                         className="flex-1 text-xs uppercase tracking-wider py-3 rounded-lg transition-colors text-center font-medium flex items-center justify-center gap-1.5"
                         style={{ border: '1px solid var(--accent-border)', color: 'var(--text-primary)' }}>
                         <span className="text-sm">📞</span> Call Us
