@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* ─── Custom Fonts ─── */
+@font-face {
+  font-family: 'Colonna MT Std';
+  src: url('/fonts/Colonna MT Std Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── Layout Container ─── */
 .container {
   width: 100%;

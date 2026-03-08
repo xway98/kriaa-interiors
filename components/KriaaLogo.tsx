@@ -1,70 +1,65 @@
-// KRiAA text logo — themed, with red 'i'
-// Colonna MT / Didot serif style rendered as SVG text
+// KRiAA text logo using Colonna MT Std (served from /fonts/)
+// 'i' is always crimson; KR+AA inherit currentColor (theme-adaptive)
 interface Props {
-    className?: string;
     size?: 'sm' | 'md' | 'lg';
 }
 
-export default function KriaaLogo({ className = '', size = 'md' }: Props) {
-    const heights: Record<string, string> = { sm: '28px', md: '36px', lg: '48px' };
-    const h = heights[size];
+export default function KriaaLogo({ size = 'md' }: Props) {
+    const heights: Record<string, string> = { sm: '30px', md: '40px', lg: '54px' };
 
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 280 60"
-            style={{ height: h, width: 'auto' }}
-            className={className}
+            viewBox="0 0 310 68"
+            style={{ height: heights[size], width: 'auto', display: 'block' }}
             aria-label="KRiAA Interiors"
         >
-            {/* Load Playfair Display as the closest web-available serif to Colonna MT */}
-            {/* KR - theme colored */}
+            {/* KR — theme color */}
             <text
                 x="0"
-                y="44"
-                fontFamily="'Playfair Display', 'Didot', 'Georgia', serif"
-                fontSize="52"
+                y="48"
+                fontFamily="'Colonna MT Std', 'Colonna MT', serif"
+                fontSize="56"
                 fontWeight="400"
                 fill="currentColor"
-                letterSpacing="-1"
             >
                 KR
             </text>
-            {/* i - always crimson/red */}
+
+            {/* i — always crimson */}
             <text
-                x="80"
-                y="44"
-                fontFamily="'Playfair Display', 'Didot', 'Georgia', serif"
-                fontSize="52"
+                x="87"
+                y="48"
+                fontFamily="'Colonna MT Std', 'Colonna MT', serif"
+                fontSize="56"
                 fontWeight="400"
                 fill="#9b1c3a"
-                letterSpacing="-1"
-                fontStyle="italic"
             >
                 i
             </text>
-            {/* AA - theme colored */}
+
+            {/* AA — theme color */}
             <text
-                x="97"
-                y="44"
-                fontFamily="'Playfair Display', 'Didot', 'Georgia', serif"
-                fontSize="52"
+                x="105"
+                y="48"
+                fontFamily="'Colonna MT Std', 'Colonna MT', serif"
+                fontSize="56"
                 fontWeight="400"
                 fill="currentColor"
-                letterSpacing="-1"
             >
                 AA
             </text>
-            {/* Interiors subtitle */}
+
+            {/* INTERIORS — smaller tagline */}
             <text
                 x="1"
-                y="57"
+                y="63"
                 fontFamily="'Outfit', 'Inter', sans-serif"
-                fontSize="10.5"
+                fontSize="10"
                 fontWeight="300"
                 fill="currentColor"
-                letterSpacing="4.5"
-                opacity="0.65"
+                letterSpacing="5"
+                opacity="0.55"
             >
                 INTERIORS
             </text>
