@@ -8,6 +8,7 @@ import PortfolioSection from '@/components/PortfolioSection';
 import SiteVisitPopup from '@/components/SiteVisitPopup';
 import ThemeToggle from '@/components/ThemeToggle';
 import KriaaLogo from '@/components/KriaaLogo';
+import LogoIntro from '@/components/LogoIntro';
 
 export default function HomePage() {
   const [navScrolled, setNavScrolled] = useState(false);
@@ -39,6 +40,9 @@ export default function HomePage() {
 
   return (
     <>
+      {/* ─── Logo Intro animation — shows once per session ─── */}
+      <LogoIntro />
+
       {/* ─── Navbar ─── */}
       <nav
         className="fixed top-0 w-full z-50 transition-all duration-300"

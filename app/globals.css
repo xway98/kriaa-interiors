@@ -238,3 +238,175 @@ body {
 .theme-transition * {
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease !important;
 }
+
+/* ═══════════════════════════════════════════
+   LOGO INTRO ANIMATION
+═══════════════════════════════════════════ */
+
+/* Full-screen overlay */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+/* Logo letter wrapper */
+.intro-logo-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  line-height: 1;
+}
+
+/* Each letter base style */
+.intro-letter {
+  font-family: 'Colonna MT Std', 'Colonna MT', serif;
+  font-size: clamp(4rem, 14vw, 9rem);
+  font-weight: 400;
+  color: #f5f0eb;
+  opacity: 0;
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Crimson i */
+.intro-i {
+  color: #9b1c3a;
+  font-style: italic;
+}
+
+/* INTERIORS tagline */
+.intro-tagline {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(0.55rem, 1.5vw, 0.75rem);
+  letter-spacing: clamp(0.4em, 2vw, 0.8em);
+  font-weight: 300;
+  color: #f5f0eb;
+  opacity: 0;
+  text-transform: uppercase;
+  animation: introTagline 0.7s ease forwards 1.9s;
+}
+
+/* Decorative horizontal lines */
+.intro-line {
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(to right, transparent, #9b1c3a44, transparent);
+}
+
+.intro-line-left {
+  left: 0;
+  animation: introLineLeft 0.8s ease forwards 2.0s;
+}
+
+.intro-line-right {
+  right: 0;
+  animation: introLineRight 0.8s ease forwards 2.0s;
+}
+
+/* ─── Per-letter animations ─── */
+
+/* K — slides from far left */
+.intro-K {
+  animation: introSlideLeft 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.25s;
+}
+
+/* R — slides from left, slight delay */
+.intro-R {
+  animation: introSlideLeft 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.45s;
+}
+
+/* i — drops from above, crimson reveal */
+.intro-i {
+  animation: introDrop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.90s;
+}
+
+/* A1 — slides from right */
+.intro-A1 {
+  animation: introSlideRight 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.15s;
+}
+
+/* A2 — slides from right, slight delay */
+.intro-A2 {
+  animation: introSlideRight 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.30s;
+}
+
+/* ─── Keyframes ─── */
+
+@keyframes introSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes introSlideRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes introDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scaleY(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes introTagline {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introLineLeft {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 35%;
+  }
+}
+
+@keyframes introLineRight {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 35%;
+  }
+}
