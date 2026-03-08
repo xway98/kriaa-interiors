@@ -7,6 +7,7 @@ import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import PortfolioSection from '@/components/PortfolioSection';
 import SiteVisitPopup from '@/components/SiteVisitPopup';
 import ThemeToggle from '@/components/ThemeToggle';
+import KriaaLogo from '@/components/KriaaLogo';
 
 export default function HomePage() {
   const [navScrolled, setNavScrolled] = useState(false);
@@ -47,20 +48,24 @@ export default function HomePage() {
           backdropFilter: navScrolled ? 'blur(14px)' : 'none',
         }}
       >
-        <div className="container flex justify-between items-center" style={{ paddingTop: navScrolled ? '0.6rem' : '0.9rem', paddingBottom: navScrolled ? '0.6rem' : '0.9rem' }}>
-          <Link href="/">
-            <Image src="/logo.png" alt="KRiAA Interiors" width={60} height={60} className="h-10 md:h-12 w-auto" />
+        <div
+          className="container flex justify-between items-center"
+          style={{ paddingTop: navScrolled ? '0.65rem' : '1rem', paddingBottom: navScrolled ? '0.65rem' : '1rem' }}
+        >
+          {/* Logo — text SVG, theme-adaptive */}
+          <Link href="/" className="shrink-0" style={{ color: navScrolled ? 'var(--text-primary)' : 'white' }}>
+            <KriaaLogo size="md" />
           </Link>
 
-          <ul className="hidden md:flex gap-8 lg:gap-10 list-none">
+          <ul className="hidden md:flex gap-8 lg:gap-12 list-none">
             {NAV_ITEMS.map((item) => (
               <li key={item}>
                 <a
                   href={`#${item.toLowerCase()}`}
-                  className="text-xs uppercase tracking-[0.18em] transition-colors"
-                  style={{ color: 'var(--text-secondary)' }}
-                  onMouseEnter={e => (e.target as HTMLElement).style.color = 'var(--text-primary)'}
-                  onMouseLeave={e => (e.target as HTMLElement).style.color = 'var(--text-secondary)'}
+                  className="text-[0.7rem] uppercase tracking-[0.2em] transition-colors"
+                  style={{ color: navScrolled ? 'var(--text-secondary)' : 'rgba(255,255,255,0.7)' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = navScrolled ? 'var(--text-primary)' : 'white'}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = navScrolled ? 'var(--text-secondary)' : 'rgba(255,255,255,0.7)'}
                 >
                   {item}
                 </a>
@@ -72,18 +77,20 @@ export default function HomePage() {
             <ThemeToggle />
             <a
               href="#contact"
-              className="hidden md:inline-block text-xs uppercase tracking-wider px-5 py-2.5 rounded-lg transition-all"
+              className="hidden md:inline-block text-[0.7rem] uppercase tracking-widest px-5 py-2.5 rounded-lg transition-all font-medium"
               style={{ background: 'var(--accent)', color: 'white' }}
             >
               Let&apos;s Talk
             </a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 relative z-[60]"
+              className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] relative z-[60]"
               aria-label="Toggle menu"
             >
-              <span className={`block w-5 h-[1.5px] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[3.5px]' : ''}`} style={{ background: 'var(--text-primary)' }} />
-              <span className={`block w-5 h-[1.5px] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[3.5px]' : ''}`} style={{ background: 'var(--text-primary)' }} />
+              <span className={`block w-5 h-[1.5px] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[3.5px]' : ''}`}
+                style={{ background: navScrolled ? 'var(--text-primary)' : 'white' }} />
+              <span className={`block w-5 h-[1.5px] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[3.5px]' : ''}`}
+                style={{ background: navScrolled ? 'var(--text-primary)' : 'white' }} />
             </button>
           </div>
         </div>
@@ -92,7 +99,7 @@ export default function HomePage() {
       {/* ─── Mobile Drawer ─── */}
       <div className={`fixed inset-0 z-[55] md:hidden transition-all duration-500 ${menuOpen ? 'visible' : 'invisible'}`}>
         <div
-          className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-400 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setMenuOpen(false)}
         />
         <div
@@ -105,7 +112,7 @@ export default function HomePage() {
                 <a
                   href={`#${item.toLowerCase()}`}
                   onClick={() => setMenuOpen(false)}
-                  className="block py-4 text-lg tracking-wide transition-colors"
+                  className="block py-4 text-base tracking-wide transition-colors"
                   style={{ color: 'var(--text-secondary)', borderBottom: '1px solid var(--border)' }}
                 >
                   {item}
@@ -116,7 +123,7 @@ export default function HomePage() {
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="mt-8 w-full text-white text-sm uppercase tracking-wider py-4 text-center rounded-lg block font-medium"
+            className="mt-8 w-full text-white text-xs uppercase tracking-widest py-4 text-center rounded-lg block font-medium"
             style={{ background: 'var(--accent)' }}
           >
             Let&apos;s Talk
@@ -133,31 +140,32 @@ export default function HomePage() {
         <section ref={heroRef} className="relative h-screen flex items-center overflow-hidden" id="home">
           <div className="absolute inset-0 -z-10">
             <Image src="/hero_img.png" alt="Luxury Interior" fill className="hero-bg object-cover scale-110 transition-transform duration-[2500ms] ease-out" priority />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/25" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/88 via-black/60 to-black/20" />
           </div>
           <div className="container w-full z-10">
-            <div className="reveal-up flex items-center gap-3 mb-5">
+            <div className="reveal-up flex items-center gap-3 mb-6">
               <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
-              <span className="text-xs tracking-[0.24em] uppercase font-medium" style={{ color: 'var(--accent)' }}>KRiAA Interiors</span>
+              <span className="text-[0.65rem] tracking-[0.28em] uppercase font-medium" style={{ color: 'var(--accent)' }}>KRiAA Interiors</span>
             </div>
-            <h1 className="reveal-up delay-1 font-serif text-[clamp(2.6rem,7vw,5.5rem)] leading-[1.06] tracking-tight mb-5 text-white">
+            <h1 className="reveal-up delay-1 font-serif text-[clamp(3rem,7.5vw,6rem)] leading-[1.06] tracking-tight mb-6 text-white max-w-3xl">
               Spaces Crafted<br /><em className="not-italic" style={{ color: 'var(--accent)' }}>with</em> Purpose.
             </h1>
-            <p className="reveal-up delay-2 text-sm md:text-base lg:text-lg max-w-md mb-8 text-gray-300 leading-relaxed">
-              We transform your vision into extraordinary living spaces — blending timeless craftsmanship with modern design.
+            <p className="reveal-up delay-2 text-sm md:text-base max-w-md mb-10 leading-[1.9]" style={{ color: 'rgba(255,255,255,0.7)' }}>
+              We transform your vision into extraordinary living spaces — blending timeless craftsmanship with modern design sensibility.
             </p>
-            <div className="reveal-up delay-3 flex items-center gap-4 flex-wrap">
-              <a href="#projects" className="text-white text-xs uppercase tracking-wider px-7 py-3.5 transition-all rounded-lg font-medium"
+            <div className="reveal-up delay-3 flex items-center gap-5 flex-wrap">
+              <a href="#projects" className="text-white text-[0.7rem] uppercase tracking-widest px-8 py-4 transition-all rounded-lg font-medium"
                 style={{ background: 'var(--accent)' }}>
                 View Our Work
               </a>
-              <a href="#transformation" className="text-gray-400 hover:text-white text-sm transition-colors hidden md:inline-block">
-                See Transformation ↓
+              <a href="#transformation" className="text-sm transition-colors flex items-center gap-2 hidden md:flex"
+                style={{ color: 'rgba(255,255,255,0.55)' }}>
+                See Transformation <span>↓</span>
               </a>
             </div>
           </div>
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-3 opacity-40 hidden md:flex">
-            <div className="w-5 h-7 border border-white/60 rounded-[10px] relative">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 opacity-35 hidden md:flex">
+            <div className="w-5 h-7 border border-white/50 rounded-[10px] relative">
               <div className="wheel-anim absolute top-1 left-1/2 -translate-x-1/2 w-0.5 h-1.5 bg-white rounded-full" />
             </div>
           </div>
@@ -166,25 +174,27 @@ export default function HomePage() {
         {/* ─── Studio ─── */}
         <section className="section-py" id="studio">
           <div className="container">
-            <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
               <div>
-                <div className="reveal-up flex items-center gap-3 mb-5">
+                <div className="reveal-up flex items-center gap-3 mb-6">
                   <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
-                  <span className="text-xs tracking-[0.24em] uppercase" style={{ color: 'var(--accent)' }}>The Studio</span>
+                  <span className="text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: 'var(--accent)' }}>The Studio</span>
                 </div>
-                <h2 className="reveal-up delay-1 font-serif text-[clamp(2rem,4vw,3.2rem)] leading-[1.15] mb-6">
+                <h2 className="reveal-up delay-1 font-serif text-[clamp(2.2rem,4vw,3.5rem)] mb-8">
                   Where vision meets<br />perfect execution.
                 </h2>
-                <p className="reveal-up delay-2 text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  At KRiAA Interiors, we believe every space tells a story. Our approach blends timeless craftsmanship with modern sensibilities — each project is a bespoke journey from concept to completion.
+                <p className="reveal-up delay-2 text-sm md:text-base leading-[1.9] max-w-lg" style={{ color: 'var(--text-secondary)' }}>
+                  At KRiAA Interiors, we believe every space tells a story. Our approach blends
+                  timeless craftsmanship with modern sensibilities — each project is a bespoke
+                  journey from concept to completion.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4 reveal-up delay-1">
                 {[['12+', 'Years of Mastery'], ['85', 'Bespoke Projects'], ['4', 'Design Awards'], ['100%', 'Client Focus']].map(([num, label]) => (
-                  <div key={label} className="p-6 rounded-2xl"
+                  <div key={label} className="p-7 rounded-2xl"
                     style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
-                    <span className="block font-serif text-3xl lg:text-4xl mb-2" style={{ color: 'var(--accent)' }}>{num}</span>
-                    <span className="text-xs uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>{label}</span>
+                    <span className="block font-serif text-4xl mb-2" style={{ color: 'var(--accent)' }}>{num}</span>
+                    <span className="text-[0.7rem] uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>{label}</span>
                   </div>
                 ))}
               </div>
@@ -195,20 +205,19 @@ export default function HomePage() {
         {/* ─── Transformation ─── */}
         <section className="section-py" id="transformation" style={{ background: 'var(--bg-card)' }}>
           <div className="container">
-            <div className="text-center mb-10 md:mb-14">
-              <div className="reveal-up flex items-center justify-center gap-3 mb-4">
+            <div className="text-center mb-12 md:mb-16">
+              <div className="reveal-up flex items-center justify-center gap-3 mb-5">
                 <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
-                <span className="text-xs tracking-[0.24em] uppercase" style={{ color: 'var(--accent)' }}>Our Impact</span>
+                <span className="text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: 'var(--accent)' }}>Our Impact</span>
                 <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
               </div>
-              <h2 className="reveal-up delay-1 font-serif text-[clamp(2rem,4vw,3.2rem)] leading-[1.15] mb-4">
+              <h2 className="reveal-up delay-1 font-serif text-[clamp(2.2rem,4vw,3.5rem)] mb-5">
                 The <em className="not-italic" style={{ color: 'var(--accent)' }}>Transformation</em>
               </h2>
-              <p className="reveal-up delay-2 text-sm md:text-base max-w-sm mx-auto" style={{ color: 'var(--text-secondary)' }}>
+              <p className="reveal-up delay-2 text-sm md:text-base max-w-sm mx-auto leading-[1.9]" style={{ color: 'var(--text-secondary)' }}>
                 Drag the slider to witness how we transform raw spaces into stunning interiors.
               </p>
             </div>
-            {/* Slider is NOT wrapped in reveal-up — it must always be visible and interactive */}
             <BeforeAfterSlider
               beforeSrc="/before_interior.png"
               afterSrc="/after_interior.png"
@@ -224,26 +233,27 @@ export default function HomePage() {
         {/* ─── Services ─── */}
         <section className="section-py" id="services">
           <div className="container">
-            <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-start">
               <div className="md:sticky md:top-32">
-                <div className="reveal-up flex items-center gap-3 mb-5">
+                <div className="reveal-up flex items-center gap-3 mb-6">
                   <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
-                  <span className="text-xs tracking-[0.24em] uppercase" style={{ color: 'var(--accent)' }}>Expertise</span>
+                  <span className="text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: 'var(--accent)' }}>Expertise</span>
                 </div>
-                <h2 className="reveal-up delay-1 font-serif text-[clamp(2rem,4vw,3.2rem)] leading-[1.15]">
-                  Tailored<br /><em className="not-italic" style={{ color: 'var(--accent)' }}>Solutions</em>
+                <h2 className="reveal-up delay-1 font-serif text-[clamp(2.2rem,4vw,3.5rem)]">
+                  Tailored<br />
+                  <em className="not-italic" style={{ color: 'var(--accent)' }}>Solutions</em>
                 </h2>
               </div>
               <div>
                 {[
-                  ['Concept Design', 'Transforming abstract ideas into comprehensive visual blueprints aligned with your spatial realities.'],
-                  ['Interior Architecture', 'Restructuring your space for optimal flow, natural light, and structural harmony.'],
-                  ['Furniture & Curation', 'Sourcing bespoke pieces, rare artworks, and luxury materials for a distinct character.'],
-                  ['Project Management', 'End-to-end coordination with craftsmen, suppliers and contractors for flawless delivery.'],
+                  ['Concept Design', 'Transforming abstract ideas into comprehensive visual blueprints that align with your spatial realities and lifestyle aspirations.'],
+                  ['Interior Architecture', 'Restructuring your space for optimal flow, natural light ingress, and structural harmony.'],
+                  ['Furniture & Curation', 'Sourcing bespoke pieces, rare artworks, and luxury materials to give each space a distinct, irreplaceable character.'],
+                  ['Project Management', 'End-to-end coordination with craftsmen, suppliers and contractors — ensuring flawless delivery on time.'],
                 ].map(([name, desc]) => (
-                  <div key={name} className="py-7 reveal-up" style={{ borderBottom: '1px solid var(--border)' }}>
+                  <div key={name} className="py-8 reveal-up" style={{ borderBottom: '1px solid var(--border)' }}>
                     <h3 className="font-serif text-xl md:text-2xl mb-3">{name}</h3>
-                    <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{desc}</p>
+                    <p className="text-sm md:text-base leading-[1.9]" style={{ color: 'var(--text-secondary)' }}>{desc}</p>
                   </div>
                 ))}
               </div>
@@ -254,26 +264,27 @@ export default function HomePage() {
         {/* ─── Contact ─── */}
         <section className="section-py" id="contact" style={{ background: 'var(--bg-card)' }}>
           <div className="container">
-            <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-start">
               <div>
-                <div className="reveal-up flex items-center gap-3 mb-5">
+                <div className="reveal-up flex items-center gap-3 mb-6">
                   <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
-                  <span className="text-xs tracking-[0.24em] uppercase" style={{ color: 'var(--accent)' }}>Get In Touch</span>
+                  <span className="text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: 'var(--accent)' }}>Get In Touch</span>
                 </div>
-                <h2 className="reveal-up delay-1 font-serif text-[clamp(2rem,4vw,3.2rem)] leading-[1.15] mb-5">
+                <h2 className="reveal-up delay-1 font-serif text-[clamp(2.2rem,4vw,3.5rem)] mb-5">
                   Ready to elevate<br />your space?
                 </h2>
-                <p className="reveal-up delay-2 text-sm md:text-base mb-8 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  Let&apos;s bring your vision to life. Book a free site visit today.
+                <p className="reveal-up delay-2 text-sm md:text-base mb-8 leading-[1.9]" style={{ color: 'var(--text-secondary)' }}>
+                  Let&apos;s bring your vision to life. Book a complimentary site visit and speak
+                  with our designers in your own space.
                 </p>
-                <div className="reveal-up delay-2 space-y-3">
-                  <a href="mailto:hello@kriaainteriors.com" className="flex items-center gap-2 text-sm md:text-base transition-colors" style={{ color: 'var(--accent)' }}>
+                <div className="reveal-up delay-2 space-y-4">
+                  <a href="mailto:hello@kriaainteriors.com" className="flex items-center gap-3 text-sm md:text-base transition-opacity hover:opacity-70" style={{ color: 'var(--accent)' }}>
                     <span>✉</span> hello@kriaainteriors.com
                   </a>
-                  <a href="tel:+919448658254" className="flex items-center gap-2 text-sm md:text-base transition-colors" style={{ color: 'var(--text-secondary)' }}>
+                  <a href="tel:+919448658254" className="flex items-center gap-3 text-sm md:text-base transition-opacity hover:opacity-70" style={{ color: 'var(--text-secondary)' }}>
                     <span>📞</span> +91 94486 58254
                   </a>
-                  <a href="https://www.instagram.com/kriaa_interiors" target="_blank" rel="noopener" className="flex items-center gap-2 text-sm md:text-base transition-colors" style={{ color: 'var(--text-secondary)' }}>
+                  <a href="https://www.instagram.com/kriaa_interiors" target="_blank" rel="noopener" className="flex items-center gap-3 text-sm md:text-base transition-opacity hover:opacity-70" style={{ color: 'var(--text-secondary)' }}>
                     <span>📷</span> @kriaa_interiors
                   </a>
                 </div>
@@ -286,16 +297,26 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer style={{ borderTop: '1px solid var(--border)' }}>
-        <div className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm" style={{ color: 'var(--text-muted)' }}>
-            <div className="flex items-center gap-3">
-              <Image src="/logo.png" alt="KRiAA Interiors" width={40} height={40} className="h-8 w-auto" />
-              <span className="text-xs">© 2026 KRiAA Interiors. All Rights Reserved.</span>
+        <div className="container" style={{ paddingTop: '2.5rem', paddingBottom: '2.5rem' }}>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            {/* Circular logo in footer as requested */}
+            <div className="flex items-center gap-4">
+              <Image
+                src="/logo.png"
+                alt="KRiAA Interiors"
+                width={48}
+                height={48}
+                className="h-11 w-11 rounded-full object-cover"
+              />
+              <div>
+                <p className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>KRiAA Interiors</p>
+                <p className="text-[0.65rem]" style={{ color: 'var(--text-muted)' }}>© 2026 All Rights Reserved.</p>
+              </div>
             </div>
-            <div className="flex gap-6">
-              <a href="https://www.instagram.com/kriaa_interiors" target="_blank" rel="noopener" className="hover:opacity-70 transition-opacity">Instagram</a>
-              <a href="#" className="hover:opacity-70 transition-opacity">Pinterest</a>
-              <a href="#" className="hover:opacity-70 transition-opacity">LinkedIn</a>
+            <div className="flex gap-7 text-xs" style={{ color: 'var(--text-muted)' }}>
+              <a href="https://www.instagram.com/kriaa_interiors?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" className="hover:opacity-70 transition-opacity tracking-wider uppercase">Instagram</a>
+              <a href="#" className="hover:opacity-70 transition-opacity tracking-wider uppercase">Pinterest</a>
+              <a href="#" className="hover:opacity-70 transition-opacity tracking-wider uppercase">LinkedIn</a>
             </div>
           </div>
         </div>
