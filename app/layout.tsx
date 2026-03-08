@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${outfit.variable}`}>
-      <body className="bg-[#080c0e] text-[#f0f4f5] antialiased">{children}</body>
+    <html lang="en" data-theme="dark" className={`${playfair.variable} ${outfit.variable}`} suppressHydrationWarning>
+      <body className="antialiased" style={{ background: 'var(--bg)', color: 'var(--text-primary)' }}>{children}</body>
     </html>
   );
 }
