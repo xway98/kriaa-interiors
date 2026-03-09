@@ -70,19 +70,19 @@ export default function LogoIntro() {
                         className="intro-svg-K">K</text>
 
                     {/* R — slides from left */}
-                    <text x="57" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                    <text x="60" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
                         className="intro-svg-R">R</text>
 
                     {/* i — crimson, NO italic — matches KriaaLogo exactly */}
-                    <text x="107" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#9b1c3a"
+                    <text x="110" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#9b1c3a"
                         className="intro-svg-i">i</text>
 
                     {/* A — slides from right */}
-                    <text x="125" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                    <text x="128" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
                         className="intro-svg-A1">A</text>
 
                     {/* A — slides from right */}
-                    <text x="182" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                    <text x="185" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
                         className="intro-svg-A2">A</text>
                 </svg>
             </div>
