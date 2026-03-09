@@ -258,29 +258,26 @@ body {
   pointer-events: none;
 }
 
-/* Logo letter wrapper */
-.intro-logo-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 0;
-  line-height: 1;
-}
-
-/* Each letter base style */
-.intro-letter {
-  font-family: 'Colonna MT Std', 'Colonna MT', serif;
-  font-size: clamp(4rem, 14vw, 9rem);
-  font-weight: 400;
-  color: #f5f0eb;
-  opacity: 0;
-  display: inline-block;
+/* Logo SVG wrapper */
+.intro-logo-svg-wrap {
+  width: min(90vw, 420px);
   will-change: transform, opacity;
 }
 
-/* Crimson i */
-.intro-i {
-  color: #9b1c3a;
-  font-style: italic;
+.intro-logo-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Individual SVG text elements */
+.intro-svg-K,
+.intro-svg-R,
+.intro-svg-i,
+.intro-svg-A1,
+.intro-svg-A2 {
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 /* INTERIORS tagline */
@@ -315,23 +312,23 @@ body {
 }
 
 /* ─── Per-letter animations (faster) ─── */
-.intro-K {
+.intro-svg-K {
   animation: introSlideLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s;
 }
 
-.intro-R {
+.intro-svg-R {
   animation: introSlideLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.28s;
 }
 
-.intro-i {
+.intro-svg-i {
   animation: introDrop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.55s;
 }
 
-.intro-A1 {
+.intro-svg-A1 {
   animation: introSlideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.72s;
 }
 
-.intro-A2 {
+.intro-svg-A2 {
   animation: introSlideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.85s;
 }
 
