@@ -8,6 +8,30 @@ export default function LogoIntro() {
     const [exitStyle, setExitStyle] = useState<React.CSSProperties>({});
     const wrapRef = useRef<HTMLDivElement>(null);
 
+    // ─── ANIMATION & LAYOUT CONFIG — Edit these for quick adjustments ───
+    const CONFIG = {
+        // Main Logo (SVG)
+        logoSize: 'clamp(3.5rem, 12vw, 8rem)',
+        logoFont: "'Colonna MT Std', 'Colonna MT', serif",
+        logoY: "60", // vertical position inside the SVG viewBox
+
+        // "INTERIORS" Tagline
+        tagline: {
+            text: "INTERIORS",
+            fontSize: 'clamp(0.55rem, 1.5vw, 0.75rem)',
+            letterSpacing: '0.8em', // Adjust this for word spacing
+            marginTop: '0.75rem',    // Distance from the main logo
+            opacity: 0.5,            // Final transparency level
+            fontWeight: 300,
+            fontFamily: "'Outfit', sans-serif",
+            color: '#f5f0eb'
+        },
+
+        // Animation Timings (ms)
+        exitDelay: 1650, // when the fly-to-navbar starts
+        doneDelay: 2500  // when the intro is completely removed
+    };
+
     useEffect(() => {
         const exitTimer = setTimeout(() => {
             const navLogo = document.getElementById('navbar-logo');
@@ -35,11 +59,11 @@ export default function LogoIntro() {
             }
 
             setPhase('exiting');
-        }, 1650);
+        }, CONFIG.exitDelay);
 
         const doneTimer = setTimeout(() => {
             setPhase('done');
-        }, 2500);
+        }, CONFIG.doneDelay);
 
         return () => {
             clearTimeout(exitTimer);
@@ -49,16 +73,12 @@ export default function LogoIntro() {
 
     if (phase === 'done') return null;
 
-    // Render as SVG — exactly matching KriaaLogo.tsx so the 'i' looks identical
-    const FONT = "'Colonna MT Std', 'Colonna MT', serif";
-    const FS = 'clamp(3.5rem, 12vw, 8rem)';  // responsive font size via CSS var
-
     return (
         <div
             className={`intro-overlay${phase === 'exiting' ? ' intro-overlay--exit' : ''}`}
             aria-hidden="true"
         >
-            {/* SVG logo — same structure as KriaaLogo.tsx */}
+            {/* SVG logo — matches KriaaLogo.tsx structure */}
             <div ref={wrapRef} className="intro-logo-svg-wrap" style={phase === 'exiting' ? exitStyle : {}}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -66,23 +86,23 @@ export default function LogoIntro() {
                     className="intro-logo-svg"
                 >
                     {/* K — slides from left */}
-                    <text x="0" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                    <text x="0" y={CONFIG.logoY} fontFamily={CONFIG.logoFont} fontSize="72" fontWeight="400" fill="#f5f0eb"
                         className="intro-svg-K">K</text>
 
                     {/* R — slides from left */}
-                    <text x="60" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                    <text x="60" y={CONFIG.logoY} fontFamily={CONFIG.logoFont} fontSize="72" fontWeight="400" fill="#f5f0eb"
                         className="intro-svg-R">R</text>
 
                     {/* i — crimson, NO italic — matches KriaaLogo exactly */}
-                    <text x="111" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#9b1c3a"
+                    <text x="111" y={CONFIG.logoY} fontFamily={CONFIG.logoFont} fontSize="72" fontWeight="400" fill="#9b1c3a"
                         className="intro-svg-i">i</text>
 
                     {/* A — slides from right */}
-                    <text x="130" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                    <text x="136" y={CONFIG.logoY} fontFamily={CONFIG.logoFont} fontSize="72" fontWeight="400" fill="#f5f0eb"
                         className="intro-svg-A1">A</text>
 
                     {/* A — slides from right */}
-                    <text x="187" y="60" fontFamily={FONT} fontSize="72" fontWeight="400" fill="#f5f0eb"
+                    <text x="193" y={CONFIG.logoY} fontFamily={CONFIG.logoFont} fontSize="72" fontWeight="400" fill="#f5f0eb"
                         className="intro-svg-A2">A</text>
                 </svg>
             </div>
@@ -90,7 +110,20 @@ export default function LogoIntro() {
             {/* Tagline + accent lines — only during playing */}
             {phase === 'playing' && (
                 <>
-                    <div className="intro-tagline">INTERIORS</div>
+                    <div
+                        className="intro-tagline"
+                        style={{
+                            fontSize: CONFIG.tagline.fontSize,
+                            letterSpacing: CONFIG.tagline.letterSpacing,
+                            marginTop: CONFIG.tagline.marginTop,
+                            fontWeight: CONFIG.tagline.fontWeight,
+                            fontFamily: CONFIG.tagline.fontFamily,
+                            color: CONFIG.tagline.color,
+                            // Note: animation in CSS handles the initial opacity (0 -> value)
+                        }}
+                    >
+                        {CONFIG.tagline.text}
+                    </div>
                     <div className="intro-line intro-line-left" />
                     <div className="intro-line intro-line-right" />
                 </>
