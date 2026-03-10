@@ -271,46 +271,42 @@ body {
 }
 
 /* Individual SVG text elements */
-.intro-svg-K,
-.intro-svg-R,
-.intro-svg-i,
-.intro-svg-A1,
-.intro-svg-A2 {
+.intro-logo-svg text {
   opacity: 0;
+  animation: logoFade 1.2s ease forwards;
   will-change: transform, opacity;
+}
+
+.intro-logo-svg text:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.intro-logo-svg text:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.intro-logo-svg text:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.intro-logo-svg text:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.intro-logo-svg text:nth-child(5) {
+  animation-delay: 0.5s;
 }
 
 /* SVG Tagline & Lines */
 .intro-tagline-svg {
   opacity: 0;
-  animation: introFadeUp 0.6s ease forwards 1.2s;
+  animation: introTagline 0.6s ease forwards 1.2s;
 }
 
 .intro-svg-line {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   animation: introLineDraw 0.8s ease forwards 1.3s;
-}
-
-/* ─── Per-letter animations (faster) ─── */
-.intro-svg-K {
-  animation: introSlideLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s;
-}
-
-.intro-svg-R {
-  animation: introSlideLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.28s;
-}
-
-.intro-svg-i {
-  animation: introDrop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.55s;
-}
-
-.intro-svg-A1 {
-  animation: introSlideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.72s;
-}
-
-.intro-svg-A2 {
-  animation: introSlideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.85s;
 }
 
 /* Background fades out during fly-to-navbar exit while logo travels */
@@ -321,39 +317,15 @@ body {
 
 /* ─── Keyframes ─── */
 
-@keyframes introSlideLeft {
+@keyframes logoFade {
   from {
     opacity: 0;
-    transform: translateX(-60px);
+    transform: translateY(15px);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes introSlideRight {
-  from {
-    opacity: 0;
-    transform: translateX(60px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes introDrop {
-  from {
-    opacity: 0;
-    transform: translateY(-50px) scaleY(0.7);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scaleY(1);
+    transform: translateY(0);
   }
 }
 
@@ -369,22 +341,12 @@ body {
   }
 }
 
-@keyframes introLineLeft {
+@keyframes introLineDraw {
   from {
-    width: 0;
+    stroke-dashoffset: 100;
   }
 
   to {
-    width: 35%;
-  }
-}
-
-@keyframes introLineRight {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 35%;
+    stroke-dashoffset: 0;
   }
 }
